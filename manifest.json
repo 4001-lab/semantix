@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Vocab Learner",
+  "name": "Semantix",
   "version": "1.0.0",
   "description": "Context-aware vocabulary learning with AI",
   "permissions": ["activeTab", "storage"],

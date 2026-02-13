@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vocab Learner</title>
+  <title>Semantix</title>
   <style>
     body {
       width: 300px;
@@ -27,13 +27,50 @@
       border-radius: 5px;
       margin-top: 10px;
     }
+    .api-key-section {
+      margin-top: 15px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4cae4c;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #5cb85c;
+    }
   </style>
 </head>
 <body>
-  <h1>📚 Vocab Learner</h1>
+  <h1>📚 Semantix</h1>
+  <div class="api-key-section">
+    <label for="apiKey"><strong>Gemini API Key:</strong></label>
+    <input type="password" id="apiKey" placeholder="Enter your API key">
+    <button id="saveBtn">Save API Key</button>
+    <div class="status" id="status"></div>
+  </div>
   <div class="instructions">
     <p><strong>How to use:</strong></p>
     <p>Double-click any word on a webpage to get its contextual definition, synonyms, antonyms, and usage examples.</p>
   </div>
+  <script src="popup.js"></script>
 </body>
 </html>

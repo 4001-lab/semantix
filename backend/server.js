@@ -14,9 +14,10 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/api/define', async (req, res) => {
-  const { word, pageTitle } = req.body;
+  const { word, pageTitle, apiKey } = req.body;
 
   try {
+    const ai = new GoogleGenAI({ apiKey: apiKey || process.env.GEMINI_API_KEY });
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
       contents: `In the context of "${pageTitle}", provide:

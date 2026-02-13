@@ -5,20 +5,28 @@ document.body.addEventListener('dblclick', async () => {
   const pageTitle = document.title.toUpperCase();
   showLoader();
 
-  try {
-    const response = await fetch('http://localhost:3000/api/define', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ word: text, pageTitle })
-    });
+  chrome.storage.local.get(['geminiApiKey'], async (result) => {
+    // TO DO: uncomment this block to require API key
+    // if (!result.geminiApiKey) {
+    //   displayError('Please set your API key in the extension popup');
+    //   return;
+    // }
 
-    const data = await response.json();
-    console.log('API response:', data);
-    displayDefinition(data.content);
-  } catch (error) {
-    console.error('Error:', error);
-    closeModal();
-  }
+    try {
+      const response = await fetch('http://localhost:3000/api/define', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ word: text, pageTitle, apiKey: result.geminiApiKey })
+      });
+
+      const data = await response.json();
+      console.log('API response:', data);
+      displayDefinition(data.content);
+    } catch (error) {
+      console.error('Error:', error);
+      closeModal();
+    }
+  });
 });
 
 function showLoader() {
@@ -73,6 +81,23 @@ function displayDefinition(content) {
   
   modal.querySelector('.vocab-close').onclick = () => modal.remove();
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+}
+
+function displayError(message) {
+  const modal = document.getElementById('vocab-modal');
+  if (modal) {
+    modal.innerHTML = `
+      <div class="vocab-content">
+        <div class="vocab-header">
+          <span class="vocab-close">&times;</span>
+          <h2>Error</h2>
+        </div>
+        <div class="vocab-body">
+          <p>${message}</p>
+        </div>
+      </div>`;
+    modal.querySelector('.vocab-close').onclick = () => modal.remove();
+  }
 }
 
 function closeModal() {

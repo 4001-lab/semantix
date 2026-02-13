@@ -1,4 +1,4 @@
-# Vocab Learner - Chrome Extension
+# Semantix - Chrome Extension
 
 A minimal vocabulary learning extension that provides context-aware definitions using Google's Gemini AI.
 
