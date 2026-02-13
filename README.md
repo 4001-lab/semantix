@@ -17,7 +17,7 @@ A minimal vocabulary learning extension that provides context-aware definitions 
 
 2. **Setup Backend**
    - Navigate to `backend` folder
-   - Create `.env` file: `GEMINI_API_KEY=your_api_key`
+   - Create `.env` file: `GEMINI_API_KEY=your_api_key` (optional - can use extension popup instead)
    - Install dependencies: `npm install`
    - Start server: `npm start`
 
@@ -26,6 +26,12 @@ A minimal vocabulary learning extension that provides context-aware definitions 
    - Enable "Developer mode"
    - Click "Load unpacked"
    - Select the `vocabLearner` folder
+
+4. **Configure API Key (Optional)**
+   - Click the Semantix extension icon
+   - Enter your Gemini API key in the popup
+   - Click "Save API Key"
+   - If no key is entered, the backend will use the .env key
 
 ## Usage
 
