@@ -1,6 +1,6 @@
 # Vocab Learner - Chrome Extension
 
-A minimal vocabulary learning extension that provides context-aware definitions using OpenAI's GPT-3.5.
+A minimal vocabulary learning extension that provides context-aware definitions using Google's Gemini AI.
 
 ## Features
 
@@ -11,13 +11,15 @@ A minimal vocabulary learning extension that provides context-aware definitions 
 
 ## Setup
 
-1. **Get OpenAI API Key**
-   - Visit https://platform.openai.com/api-keys
+1. **Get Gemini API Key**
+   - Visit https://aistudio.google.com/app/apikey
    - Create a new API key
 
-2. **Configure Extension**
-   - Open `content.js`
-   - Replace `YOUR_OPENAI_API_KEY` with your actual API key
+2. **Setup Backend**
+   - Navigate to `backend` folder
+   - Create `.env` file: `GEMINI_API_KEY=your_api_key`
+   - Install dependencies: `npm install`
+   - Start server: `npm start`
 
 3. **Install Extension**
    - Open Chrome and go to `chrome://extensions/`
@@ -27,17 +29,11 @@ A minimal vocabulary learning extension that provides context-aware definitions 
 
 ## Usage
 
-1. Navigate to any webpage
-2. Double-click any word (up to 15 characters)
-3. View the contextual definition in the popup modal
-4. Click the X or outside the modal to close
-
-## Security Note
-
-⚠️ **Important**: Never commit your API key to version control. Consider using:
-- Environment variables
-- Chrome extension storage with user input
-- Backend proxy server for API calls
+1. Ensure backend server is running on port 3000
+2. Navigate to any webpage
+3. Double-click any word (up to 15 characters)
+4. View the contextual definition in the popup modal
+5. Click the X or outside the modal to close
 
 ## Files
 
@@ -45,3 +41,5 @@ A minimal vocabulary learning extension that provides context-aware definitions 
 - `content.js` - Main logic for word lookup
 - `content.css` - Modal styling
 - `popup.html` - Extension popup interface
+- `backend/server.js` - Express server with Gemini API
+- `backend/package.json` - Backend dependencies
