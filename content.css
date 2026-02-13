@@ -1,0 +1,76 @@
+.vocab-modal {
+  display: block;
+  position: fixed;
+  z-index: 999999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 100px;
+}
+
+.vocab-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.vocab-close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -10px;
+}
+
+.vocab-close:hover {
+  color: #000;
+}
+
+.vocab-header {
+  padding: 10px 16px;
+  background-color: #5cb85c;
+  color: white;
+  border-radius: 5px 5px 0 0;
+  margin: -20px -20px 20px -20px;
+}
+
+.vocab-header h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+}
+
+.vocab-body {
+  padding: 10px 0;
+  color: #333;
+}
+
+.vocab-body p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+
+.vocab-footer {
+  padding: 10px 16px;
+  background-color: #5cb85c;
+  color: white;
+  border-radius: 0 0 5px 5px;
+  margin: 20px -20px -20px -20px;
+}
+
+.vocab-footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .vocab-content {
+    width: 90%;
+  }
+}
