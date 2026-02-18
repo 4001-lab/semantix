@@ -30,6 +30,7 @@ document.body.addEventListener('dblclick', async () => {
       } else {
         displayDefinition(data.content);
       }
+      
     } catch (error) {
       console.error('Error:', error);
       displayError('Network error. Please check your connection.');
