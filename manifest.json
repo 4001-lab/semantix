@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Context-aware vocabulary learning with AI",
   "permissions": ["activeTab", "storage"],
+  "host_permissions": ["https://semantix-sable.vercel.app/*"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
