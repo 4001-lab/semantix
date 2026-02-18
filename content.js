@@ -24,10 +24,15 @@ document.body.addEventListener('dblclick', async () => {
 
       const data = await response.json();
       console.log('API response:', data);
-      displayDefinition(data.content);
+      
+      if (data.error) {
+        displayError(data.error);
+      } else {
+        displayDefinition(data.content);
+      }
     } catch (error) {
       console.error('Error:', error);
-      displayError('Failed to retrieve definition. Please set your API key in the extension popup.');
+      displayError('Network error. Please check your connection.');
     }
   });
 });
