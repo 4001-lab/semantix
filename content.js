@@ -16,21 +16,29 @@ document.body.addEventListener('dblclick', async () => {
     // }
 
     try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ word: text, pageTitle, apiKey: result.geminiApiKey })
-      });
+      chrome.runtime.sendMessage(
+        {
+          type: "DEFINE_WORD",
+          payload: {
+            word: text,
+            pageTitle,
+            apiKey: result.geminiApiKey
+          }
+        },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            displayError("Extension error");
+            return;
+          }
 
-      const data = await response.json();
-      console.log('API response:', data);
-      
-      if (data.error) {
-        displayError(data.error);
-      } else {
-        displayDefinition(data.content);
-      }
-      
+          if (response?.error) {
+            displayError(response.error);
+          } else {
+            displayDefinition(response.content);
+          }
+        }
+      );
+
     } catch (error) {
       console.error('Error:', error);
       displayError('Network error. Please check your connection.');
@@ -58,10 +66,10 @@ function displayDefinition(content) {
     closeModal();
     return;
   }
-  
+
   const lines = content.split('\n').filter(l => l.trim());
   const data = {};
-  
+
   lines.forEach(line => {
     if (line.includes('1.') && line.includes('Word:')) data.word = line.split('Word:')[1]?.trim();
     if (line.includes('2.') && line.includes('Category:')) data.category = line.split('Category:')[1]?.trim();
@@ -87,7 +95,7 @@ function displayDefinition(content) {
         <p><b>Usage:</b> ${data.usage || ''}</p>
       </div>
     </div>`;
-  
+
   modal.querySelector('.vocab-close').onclick = () => modal.remove();
   modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
 }
