@@ -5,6 +5,9 @@ document.body.addEventListener('dblclick', async () => {
   const pageTitle = document.title.toUpperCase();
   showLoader();
 
+  // Update this URL after deploying to Vercel
+  const API_URL = 'http://localhost:3000/api/define'; // Change to: https://your-app.vercel.app/api/define
+
   chrome.storage.local.get(['geminiApiKey'], async (result) => {
     // TO DO: uncomment this block to require API key
     // if (!result.geminiApiKey) {
@@ -13,7 +16,7 @@ document.body.addEventListener('dblclick', async () => {
     // }
 
     try {
-      const response = await fetch('http://localhost:3000/api/define', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ word: text, pageTitle, apiKey: result.geminiApiKey })
@@ -24,7 +27,7 @@ document.body.addEventListener('dblclick', async () => {
       displayDefinition(data.content);
     } catch (error) {
       console.error('Error:', error);
-      closeModal();
+      displayError('Failed to retrieve definition. Please set your API key in the extension popup.');
     }
   });
 });
