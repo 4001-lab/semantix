@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     });
 
     const response = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-3-flash-preview',
       contents: `In the context of "${pageTitle}", provide:
 1. Word: ${word}
 2. Category: (noun/verb/adjective/etc)
