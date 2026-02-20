@@ -3,6 +3,11 @@
   "name": "Semantix",
   "version": "1.0.0",
   "description": "Context-aware vocabulary learning with AI",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "permissions": ["activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
