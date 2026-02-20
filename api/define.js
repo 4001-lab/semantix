@@ -1,26 +1,34 @@
 import { GoogleGenAI } from '@google/genai';
 
 export default async function handler(req, res) {
-  // CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  // ✅ Always set CORS headers FIRST
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization"
+    'Access-Control-Allow-Headers',
+    'Content-Type, Authorization'
   );
-  // Handle preflight OPTIONS request
+
+  // ✅ Handle preflight immediately
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { word, pageTitle, apiKey } = req.body;
-
   try {
-    const ai = new GoogleGenAI({ apiKey: apiKey || process.env.GEMINI_API_KEY });
+    if (req.method !== 'POST') {
+      return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const { word, pageTitle, apiKey } = req.body;
+
+    if (!word) {
+      return res.status(400).json({ error: 'Word is required' });
+    }
+
+    const ai = new GoogleGenAI({
+      apiKey: apiKey || process.env.GEMINI_API_KEY
+    });
+
     const response = await ai.models.generateContent({
       model: 'gemini-2.0-flash-exp',
       contents: `In the context of "${pageTitle}", provide:
@@ -34,9 +42,13 @@ export default async function handler(req, res) {
 Format exactly as shown.`
     });
 
-    res.status(200).json({ content: response.text });
+    return res.status(200).json({ content: response.text });
+
   } catch (error) {
     console.error('Server error:', error);
-    res.status(500).json({ error: error.message });
+
+    return res.status(500).json({
+      error: error.message || 'Internal Server Error'
+    });
   }
 }
