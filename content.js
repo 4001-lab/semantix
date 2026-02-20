@@ -6,7 +6,8 @@ document.body.addEventListener('dblclick', async () => {
   showLoader();
 
   // Update this URL after deploying to Vercel
-  const API_URL = 'https://semantix-sable.vercel.app/api/define'; //'http://localhost:3000/api/define'; // Change to: https://your-app.vercel.app/api/define
+  const API_URL = //'https://semantix-sable.vercel.app/api/define'; 
+  //const API_URL = 'http://localhost:3000/api/define'; 
 
   chrome.storage.local.get(['geminiApiKey'], async (result) => {
     // TO DO: uncomment this block to require API key
@@ -16,28 +17,18 @@ document.body.addEventListener('dblclick', async () => {
     // }
 
     try {
-      chrome.runtime.sendMessage(
-        {
-          type: "DEFINE_WORD",
-          payload: {
-            word: text,
-            pageTitle,
-            apiKey: result.geminiApiKey
-          }
-        },
-        (response) => {
-          if (chrome.runtime.lastError) {
-            displayError("Extension error");
-            return;
-          }
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ word: text, pageTitle, apiKey: result.geminiApiKey })
+      });
 
-          if (response?.error) {
-            displayError(response.error);
-          } else {
-            displayDefinition(response.content);
-          }
-        }
-      );
+      const data = await response.json();
+      if (data.error) {
+        displayError(data.error);
+      } else {
+        displayDefinition(data.content);
+      }
 
     } catch (error) {
       console.error('Error:', error);
