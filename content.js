@@ -6,7 +6,7 @@ document.body.addEventListener('dblclick', async () => {
   showLoader();
 
   // Update this URL after deploying to Vercel
-  const API_URL = 'https://semantix-sable.vercel.app/api/define'; 
+  const API_URL = 'https://semantix-two.vercel.app/api/define'; 
   //const API_URL = 'http://localhost:3000/api/define'; 
 
   chrome.storage.local.get(['geminiApiKey'], async (result) => {
