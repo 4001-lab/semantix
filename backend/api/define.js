@@ -42,6 +42,11 @@ Format exactly as shown.`
     });
 
     const data = await response.json();
+    
+    if (!response.ok || !data.choices || !data.choices[0]) {
+      return res.status(500).json({ error: data.error?.message || 'Failed to get response from AI' });
+    }
+    
     return res.status(200).json({ content: data.choices[0].message.content });
 
   } catch (error) {
