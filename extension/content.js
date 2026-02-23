@@ -9,19 +9,12 @@ document.body.addEventListener('dblclick', async () => {
   const API_URL = 'https://semantix-two.vercel.app/api/define'; 
   //const API_URL = 'http://localhost:3000/api/define'; 
 
-  chrome.storage.local.get(['geminiApiKey'], async (result) => {
-    // TO DO: uncomment this block to require API key
-    // if (!result.geminiApiKey) {
-    //   displayError('Please set your API key in the extension popup');
-    //   return;
-    // }
-
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ word: text, pageTitle, apiKey: result.geminiApiKey })
-      });
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ word: text, pageTitle })
+    });
 
       const data = await response.json();
       if (data.error) {
@@ -34,7 +27,6 @@ document.body.addEventListener('dblclick', async () => {
       console.error('Error:', error);
       displayError('Network error. Please check your connection.');
     }
-  });
 });
 
 function showLoader() {

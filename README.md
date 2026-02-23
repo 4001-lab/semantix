@@ -1,6 +1,6 @@
 # Semantix - Chrome Extension
 
-A minimal vocabulary learning extension that provides context-aware definitions using Google's Gemini AI.
+A minimal vocabulary learning extension that provides context-aware definitions using Groq's LLaMA AI.
 
 ## Features
 
@@ -11,13 +11,13 @@ A minimal vocabulary learning extension that provides context-aware definitions 
 
 ## Setup
 
-1. **Get Gemini API Key**
-   - Visit https://aistudio.google.com/app/apikey
+1. **Get Groq API Key**
+   - Visit https://console.groq.com/keys
    - Create a new API key
 
 2. **Setup Backend**
    - Navigate to `backend` folder
-   - Create `.env` file: `GEMINI_API_KEY=your_api_key` (optional - can use extension popup instead)
+   - Create `.env` file: `GROQ_API_KEY=your_api_key`
    - Install dependencies: `npm install`
    - Start server: `npm start`
 
@@ -26,12 +26,6 @@ A minimal vocabulary learning extension that provides context-aware definitions 
    - Enable "Developer mode"
    - Click "Load unpacked"
    - Select the `vocabLearner` folder
-
-4. **Configure API Key (Optional)**
-   - Click the Semantix extension icon
-   - Enter your Gemini API key in the popup
-   - Click "Save API Key"
-   - If no key is entered, the backend will use the .env key
 
 ## Usage
 
