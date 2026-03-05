@@ -28,25 +28,25 @@ export default async function handler(req, res) {
         model: 'llama-3.3-70b-versatile',
         messages: [{
           role: 'user',
-          content: `In the context of "${pageTitle}", provide:
-1. Word: ${word}
-2. Category: (noun/verb/adjective/etc)
-3. Meaning: (one contextual definition)
-4. Synonyms: (4 words)
-5. Antonyms: (4 words)
-6. Usage: (one example sentence)
+          content: `In the context of "${pageTitle}", provide the following in the Word's native language:
+                    1. Word: ${word}
+                    2. Category: (Part of speech)
+                    3. Meaning: (one contextual definition)
+                    4. Synonyms: (4 words)
+                    5. Antonyms: (4 words)
+                    6. Usage: (one example sentence)
 
-Format exactly as shown.`
+                    Format exactly as shown.`
         }]
       })
     });
 
     const data = await response.json();
-    
+
     if (!response.ok || !data.choices || !data.choices[0]) {
       return res.status(500).json({ error: data.error?.message || 'Failed to get response from AI' });
     }
-    
+
     return res.status(200).json({ content: data.choices[0].message.content });
 
   } catch (error) {
