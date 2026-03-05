@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         model: 'llama-3.3-70b-versatile',
         messages: [{
           role: 'user',
-          content: `Detect the language of "${word}". In the context of "${pageTitle}", provide the following in the Word's native language:
+          content: `Detect the language of the word "${word}". In the context of "${pageTitle}", provide the following in the Word's native language:
                     1. Word: ${word}
                     2. Category: (Part of speech)
                     3. Meaning: (one contextual definition)
