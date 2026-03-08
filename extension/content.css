@@ -10,6 +10,31 @@
   padding-top: 100px;
 }
 
+.semantix-toggle {
+  position: absolute;
+  z-index: 999998;
+  background: white;
+  border: 1px solid #5cb85c;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  padding: 2px;
+}
+
+.semantix-toggle-btn {
+  padding: 4px 10px;
+  background: #5cb85c;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.semantix-toggle-btn:hover {
+  background: #4cae4c;
+}
+
 .vocab-content {
   background-color: #fefefe;
   margin: auto;

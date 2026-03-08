@@ -1,7 +1,53 @@
-document.body.addEventListener('dblclick', async () => {
+let toggleMode = false;
+
+chrome.storage.sync.get(['toggleMode'], (result) => {
+  toggleMode = result.toggleMode || false;
+});
+
+chrome.storage.onChanged.addListener((changes) => {
+  if (changes.toggleMode) {
+    toggleMode = changes.toggleMode.newValue;
+  }
+});
+
+document.body.addEventListener('dblclick', async (e) => {
   const text = window.getSelection().toString().trim();
   if (!text || text.length > 15) return;
 
+  if (toggleMode) {
+    showTogglePopup(text, e.pageX, e.pageY);
+  } else {
+    fetchDefinition(text);
+  }
+});
+
+function showTogglePopup(word, x, y) {
+  removeTogglePopup();
+  
+  const popup = document.createElement('div');
+  popup.id = 'semantix-toggle';
+  popup.className = 'semantix-toggle';
+  popup.style.left = `${x}px`;
+  popup.style.top = `${y}px`;
+  popup.innerHTML = '<div class="semantix-toggle-btn">Explain With Semantix</div>';
+  
+  document.body.appendChild(popup);
+  
+  popup.querySelector('.semantix-toggle-btn').onclick = () => {
+    removeTogglePopup();
+    fetchDefinition(word);
+  };
+  
+  setTimeout(() => {
+    document.addEventListener('click', removeTogglePopup, { once: true });
+  }, 100);
+}
+
+function removeTogglePopup() {
+  document.getElementById('semantix-toggle')?.remove();
+}
+
+async function fetchDefinition(text) {
   const pageTitle = document.title.toUpperCase();
   showLoader();
 
@@ -27,7 +73,7 @@ document.body.addEventListener('dblclick', async () => {
       console.error('Error:', error);
       displayError('Network error. Please check your connection.');
     }
-});
+}
 
 function showLoader() {
   const modal = document.createElement('div');
